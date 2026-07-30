@@ -1,0 +1,362 @@
+/* ============================================================
+   PhotoGallery — CSS Module (Polaroid Edition)
+   ============================================================ */
+
+/* ---- Section wrapper ---- */
+.gallerySection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
+  animation: fadeInUp 0.8s ease 0.5s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Decorative heading ---- */
+.galleryHeading {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.galleryBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.3rem 1rem;
+  background: rgba(244, 114, 182, 0.1);
+  border: 1px solid rgba(244, 114, 182, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clr-accent-rose);
+}
+
+.galleryTitle {
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: var(--clr-text-primary);
+  text-shadow: 0 0 20px rgba(244, 114, 182, 0.3);
+  line-height: 1.2;
+}
+
+.gallerySubtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+}
+
+/* Decorative paw divider */
+.pawDivider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 300px;
+}
+
+.pawLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(244, 114, 182, 0.4), transparent);
+}
+
+.pawEmojis {
+  display: flex;
+  gap: 6px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* ---- Masonry grid ---- */
+.grid {
+  columns: 3;
+  column-gap: 16px;
+  width: 100%;
+}
+
+/* ---- Polaroid card ---- */
+.gridItem {
+  break-inside: avoid;
+  margin-bottom: 18px;
+  position: relative;
+  cursor: pointer;
+
+  /* Polaroid frame */
+  background: #fff;
+  padding: 8px 8px 32px 8px;
+  border-radius: 4px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.2);
+
+  /* Slight rotation via CSS custom property set in JSX */
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+.gridItem:hover {
+  transform: rotate(0deg) scale(1.05) translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.5), 0 0 0 3px rgba(244,114,182,0.5);
+  z-index: 5;
+}
+
+/* Photo inside the polaroid */
+.photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+  transition: filter 0.3s ease;
+}
+
+.gridItem:hover .photo {
+  filter: brightness(1.05) saturate(1.1);
+}
+
+/* Caption line at bottom of polaroid */
+.caption {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: 0.75rem;
+  color: #888;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Heart stamp overlay on hover */
+.gridItem::after {
+  content: '❤️';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.2rem;
+  opacity: 0;
+  transform: scale(0.5) rotate(-10deg);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.gridItem:hover::after {
+  opacity: 1;
+  transform: scale(1) rotate(5deg);
+}
+
+/* ---- Lightbox backdrop ---- */
+.lightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.93);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  animation: backdropIn 0.25s ease;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---- Lightbox panel ---- */
+.lightbox {
+  position: relative;
+  max-width: min(90vw, 820px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.82); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Lightbox polaroid frame */
+.lightboxFrame {
+  background: #fff;
+  padding: 10px 10px 50px 10px;
+  border-radius: 4px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+  max-width: 100%;
+}
+
+.lightboxImg {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 2px;
+}
+
+.lightboxCaption {
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: 1.1rem;
+  color: #888;
+  padding: 4px 0;
+}
+
+/* Counter pill */
+.lightboxCounter {
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.1em;
+  background: rgba(255,255,255,0.07);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--clr-glass-border);
+}
+
+/* Close button */
+.lightboxClose {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--clr-glass-border);
+  background: rgba(26, 10, 30, 0.9);
+  color: var(--clr-text-primary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+}
+
+.lightboxClose:hover {
+  background: var(--clr-accent-rose);
+  transform: rotate(90deg) scale(1.1);
+  color: #fff;
+}
+
+/* Nav buttons */
+.navBtn {
+  position: absolute;
+  top: 40%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--clr-glass-border);
+  background: rgba(26, 10, 30, 0.88);
+  color: var(--clr-text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  z-index: 10;
+}
+
+.navBtn:hover {
+  background: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  transform: scale(1.15) translateY(-50%);
+}
+
+.navPrev {
+  left: -58px;
+  transform: translateY(-50%);
+}
+
+.navNext {
+  right: -58px;
+  transform: translateY(-50%);
+}
+
+/* =========================================================
+   RESPONSIVE — Gallery Mobile
+   ========================================================= */
+
+/* Tablets — 2 columns */
+@media (max-width: 768px) {
+  .grid { columns: 2; column-gap: 12px; }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .grid { columns: 2; column-gap: 8px; }
+  .gridItem { margin-bottom: 10px; padding: 6px 6px 26px 6px; }
+  .caption { font-size: 0.65rem; }
+
+  /* Lightbox: full-screen image, nav buttons moved below */
+  .lightboxBackdrop {
+    padding: var(--space-sm);
+    align-items: center;
+  }
+
+  .lightbox {
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .lightboxFrame {
+    padding: 6px 6px 36px 6px;
+    width: 100%;
+  }
+
+  .lightboxImg {
+    max-height: 55vh;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  /* Move nav buttons below image in a row */
+  .navPrev,
+  .navNext {
+    position: static;
+    transform: none;
+  }
+
+  /* Row of prev/next below image */
+  .lightbox {
+    display: grid;
+    grid-template-areas:
+      "close  close"
+      "frame  frame"
+      "prev   next"
+      "count  count";
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: var(--space-sm);
+  }
+
+  .lightboxClose   { grid-area: close; position: static; }
+  .lightboxFrame   { grid-area: frame; }
+  .navPrev         { grid-area: prev; }
+  .navNext         { grid-area: next; }
+  .lightboxCounter { grid-area: count; }
+
+  .navBtn:hover { transform: scale(1.1); }
+
+  .galleryTitle { font-size: 1.5rem; }
+}
+
+/* Very small phones — 1 column */
+@media (max-width: 380px) {
+  .grid { columns: 1; }
+  .lightboxImg { max-height: 45vh; }
+}

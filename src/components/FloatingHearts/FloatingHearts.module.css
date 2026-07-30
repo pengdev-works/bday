@@ -1,0 +1,41 @@
+/* ============================================================
+   FloatingHearts — CSS Module
+   ============================================================ */
+
+/* Container that spans the full viewport, behind all content */
+.heartsContainer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Individual heart */
+.heart {
+  position: absolute;
+  bottom: -60px;
+  font-size: 1.4rem;
+  animation: floatUp linear infinite;
+  opacity: 0;
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+/* ---- Keyframes ---- */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(-15deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.1) rotate(15deg);
+    opacity: 0;
+  }
+}

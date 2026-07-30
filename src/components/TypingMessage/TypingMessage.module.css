@@ -1,0 +1,126 @@
+/* ============================================================
+   TypingMessage — CSS Module
+   ============================================================ */
+
+.messageCard {
+  background: var(--clr-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 680px;
+  width: 100%;
+  box-shadow: var(--shadow-card), var(--shadow-glow-pink);
+  animation: fadeInUp 0.8s ease 0.6s both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient shimmer effect on the card */
+.messageCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(244, 114, 182, 0.08) 0%,
+    rgba(168, 85, 247, 0.05) 50%,
+    rgba(244, 114, 182, 0.08) 100%
+  );
+  pointer-events: none;
+}
+
+.greeting {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--clr-accent-rose);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  text-shadow: 0 0 20px rgba(244, 114, 182, 0.5);
+  line-height: 1.2;
+}
+
+.messageText {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-style: italic;
+  line-height: 1.9;
+  color: var(--clr-text-secondary);
+  text-align: center;
+  position: relative;
+  min-height: 80px;
+}
+
+/* Blinking cursor that follows the typed text */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--clr-accent-rose);
+  margin-left: 2px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blink 0.8s step-end infinite;
+}
+
+.cursor.hidden {
+  opacity: 0;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   RESPONSIVE — TypingMessage Mobile
+   ========================================================= */
+@media (max-width: 768px) {
+  .messageCard {
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+@media (max-width: 600px) {
+  .messageCard {
+    padding: var(--space-lg) var(--space-md);
+    border-radius: var(--radius-lg);
+  }
+
+  .greeting   { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+  .messageText { font-size: 0.95rem; line-height: 1.8; }
+  .signature  { font-size: 1rem; }
+}
+
+@media (max-width: 380px) {
+  .messageCard { padding: var(--space-md) var(--space-sm); }
+  .greeting { font-size: 1.5rem; }
+}
+
+/* ---- Signature (by: paragas) ---- */
+.signature {
+  font-family: var(--font-script);
+  font-size: 1.15rem;
+  color: var(--clr-accent-lavender);
+  text-align: right;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(192, 132, 252, 0.2);
+  /* Hidden by default — fades in once typing finishes */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+
+.signatureVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+

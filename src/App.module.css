@@ -1,0 +1,263 @@
+/* ============================================================
+   App — CSS Module
+   Main page layout & section styles
+   ============================================================ */
+
+/* ---- Page wrapper ---- */
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Radial glow blobs for atmospheric depth */
+.page::before,
+.page::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.25;
+}
+
+.page::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #a855f7 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  animation: driftBlob 12s ease-in-out infinite alternate;
+}
+
+.page::after {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+  bottom: -150px;
+  left: -150px;
+  animation: driftBlob 15s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes driftBlob {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, 30px) scale(1.1); }
+}
+
+/* ---- Main content column ---- */
+.main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 800px;
+  padding: var(--space-2xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+/* ---- Header ---- */
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  animation: fadeInDown 1s ease both;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.headerBadge {
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  background: rgba(244, 114, 182, 0.12);
+  border: 1px solid rgba(244, 114, 182, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clr-accent-rose);
+  margin-bottom: var(--space-xs);
+}
+
+.headerTitle {
+  font-family: var(--font-script);
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #f472b6 0%, #c084fc 50%, #f472b6 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
+}
+
+.headerSub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: var(--clr-text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* Star decoration */
+.stars {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: 1rem;
+  opacity: 0.7;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.05); }
+}
+
+/* ---- Actions row (music + modal button) ---- */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ---- Divider ---- */
+.sectionDivider {
+  width: 100%;
+  max-width: 300px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--clr-glass-border), transparent);
+  border: none;
+}
+
+/* ---- Footer ---- */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+  text-align: center;
+  color: var(--clr-text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.footerHeart {
+  color: var(--clr-accent-rose);
+  animation: heartbeat 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.25); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.15); }
+  70%       { transform: scale(1); }
+}
+
+/* ---- Special Message button (manual trigger) ---- */
+.specialBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.8rem 2rem;
+  background: transparent;
+  border: 2px solid var(--clr-accent-rose);
+  color: var(--clr-accent-rose);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease,
+              transform 0.2s ease, box-shadow 0.25s ease;
+  animation: fadeInUp 0.8s ease 1.2s both;
+}
+
+.specialBtn:hover {
+  background: var(--clr-accent-rose);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(244, 114, 182, 0.45);
+}
+
+.specialBtn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* =========================================================
+   RESPONSIVE — Mobile First
+   ========================================================= */
+
+/* Tablets (≤768px) */
+@media (max-width: 768px) {
+  .main {
+    padding: var(--space-xl) var(--space-md);
+    gap: var(--space-xl);
+  }
+
+  .page::before { width: 300px; height: 300px; }
+  .page::after  { width: 250px; height: 250px; }
+}
+
+/* Phones (≤600px) */
+@media (max-width: 600px) {
+  .main {
+    padding: var(--space-lg) var(--space-sm);
+    gap: var(--space-lg);
+  }
+
+  /* Stack action buttons vertically and make them full-width */
+  .actionsRow {
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .specialBtn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.9rem 1.5rem;
+    /* Larger touch target */
+    min-height: 48px;
+  }
+
+  .headerTitle { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+  .headerSub   { font-size: 0.85rem; }
+  .headerBadge { font-size: 0.7rem; }
+
+  .sectionDivider { max-width: 200px; }
+
+  /* Shrink glow blobs on mobile so they don't cause horizontal scroll */
+  .page::before { width: 200px; height: 200px; top: -80px; right: -80px; }
+  .page::after  { width: 180px; height: 180px; bottom: -60px; left: -60px; }
+}
+
+/* Very small phones (≤380px) */
+@media (max-width: 380px) {
+  .main { padding: var(--space-md) var(--space-xs); }
+  .headerTitle { font-size: 2rem; }
+}
+

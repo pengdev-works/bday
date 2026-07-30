@@ -1,0 +1,213 @@
+/* ============================================================
+   SpecialMessageModal — CSS Module
+   ============================================================ */
+
+/* ---- Trigger button ---- */
+.triggerButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.8rem 2rem;
+  background: transparent;
+  border: 2px solid var(--clr-accent-rose);
+  color: var(--clr-accent-rose);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease,
+              transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 0 0 transparent;
+  animation: fadeInUp 0.8s ease 1.2s both;
+}
+
+.triggerButton:hover {
+  background: var(--clr-accent-rose);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(244, 114, 182, 0.45);
+}
+
+.triggerButton:active {
+  transform: translateY(0) scale(0.97);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Backdrop overlay ---- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  animation: backdropIn 0.3s ease;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---- Modal panel ---- */
+.modal {
+  background: linear-gradient(
+    145deg,
+    rgba(30, 10, 40, 0.95) 0%,
+    rgba(50, 15, 70, 0.95) 100%
+  );
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), var(--shadow-glow-purple);
+  animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Close button */
+.closeButton {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--clr-glass-border);
+  background: rgba(255,255,255,0.07);
+  color: var(--clr-text-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(244, 114, 182, 0.2);
+  color: var(--clr-accent-rose);
+  transform: rotate(90deg);
+}
+
+/* Modal decorative icon */
+.modalIcon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-md);
+  animation: floatBounce 3s ease-in-out infinite;
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Modal heading */
+.modalHeading {
+  font-family: var(--font-script);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--clr-accent-rose);
+  margin-bottom: var(--space-lg);
+  text-shadow: 0 0 16px rgba(244, 114, 182, 0.4);
+}
+
+/* Modal body text */
+.modalText {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  line-height: 1.9;
+  color: var(--clr-text-secondary);
+}
+
+/* Divider */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--clr-accent-rose), transparent);
+  margin: var(--space-lg) auto;
+  border: none;
+  border-radius: 1px;
+}
+
+/* Signature line */
+.signature {
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  color: var(--clr-accent-lavender);
+  margin-top: var(--space-md);
+}
+
+/* =========================================================
+   RESPONSIVE — Modal Mobile
+   ========================================================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .modal {
+    padding: var(--space-xl) var(--space-lg);
+    max-width: 95vw;
+  }
+}
+
+/* Phones — bottom-sheet style */
+@media (max-width: 600px) {
+  .backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    padding: var(--space-xl) var(--space-md) calc(var(--space-xl) + env(safe-area-inset-bottom));
+    max-width: 100%;
+    width: 100%;
+    animation: slideUp 0.35s cubic-bezier(0.34, 1.20, 0.64, 1);
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .closeButton {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .modalIcon   { font-size: 2.2rem; }
+  .modalText   { font-size: 0.95rem; line-height: 1.8; }
+  .signature   { font-size: 1.1rem; }
+
+  /* Drag handle visual hint */
+  .modal::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    margin: 0 auto var(--space-lg);
+  }
+}
+

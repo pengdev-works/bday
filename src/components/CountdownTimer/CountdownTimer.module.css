@@ -1,0 +1,182 @@
+/* ============================================================
+   CountdownTimer — CSS Module
+   ============================================================ */
+
+.timerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  background: var(--clr-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  animation: fadeInUp 0.8s ease 0.8s both;
+  width: 100%;
+  max-width: 480px;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.timerTitle {
+  font-family: var(--font-script);
+  font-size: 1.4rem;
+  color: var(--clr-accent-lavender);
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+/* ---- Age badge ---- */
+.ageBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-sm) var(--space-xl);
+  background: rgba(244, 114, 182, 0.08);
+  border: 1px solid rgba(244, 114, 182, 0.25);
+  border-radius: var(--radius-full);
+}
+
+.ageNumber {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, #fbbf24, #f472b6, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerAge 3s linear infinite;
+  background-size: 200% auto;
+}
+
+@keyframes shimmerAge {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
+}
+
+.ageLabel {
+  font-size: 0.75rem;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+
+/* Countdown grid */
+.countdownGrid {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.timeUnit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 70px;
+}
+
+.timeValue {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 700;
+  color: var(--clr-text-primary);
+  background: linear-gradient(135deg, #f472b6, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  min-width: 2.5ch;
+  text-align: center;
+  /* Subtle number flip animation */
+  transition: transform 0.2s ease;
+}
+
+.timeValue.tick {
+  transform: scale(1.08);
+}
+
+.timeLabel {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--clr-text-muted);
+  font-weight: 500;
+}
+
+/* Separator colon */
+.separator {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--clr-accent-purple);
+  align-self: flex-start;
+  padding-top: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* Birthday reached state */
+.birthdayNow {
+  font-family: var(--font-script);
+  font-size: 1.8rem;
+  color: var(--clr-accent-rose);
+  text-align: center;
+  text-shadow: 0 0 20px rgba(244, 114, 182, 0.6);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+
+/* =========================================================
+   RESPONSIVE — CountdownTimer Mobile
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .timerWrapper {
+    padding: var(--space-lg) var(--space-md);
+    max-width: 100%;
+  }
+
+  .timerTitle { font-size: 1.1rem; }
+
+  .ageBadge { padding: var(--space-xs) var(--space-lg); }
+  .ageNumber { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+
+  /* Keep all 4 units on one row but shrink them */
+  .countdownGrid {
+    gap: 2px;
+    flex-wrap: nowrap;
+  }
+
+  .timeUnit   { min-width: 56px; }
+  .timeValue  { font-size: clamp(1.5rem, 7vw, 2rem); }
+  .timeLabel  { font-size: 0.55rem; letter-spacing: 0.08em; }
+  .separator  { font-size: 1.4rem; padding-top: 2px; }
+  .birthdayNow { font-size: 1.3rem; }
+}
+
+@media (max-width: 380px) {
+  .countdownGrid { gap: 1px; }
+  .timeUnit   { min-width: 46px; }
+  .timeValue  { font-size: 1.3rem; }
+  .separator  { font-size: 1.1rem; }
+}
+

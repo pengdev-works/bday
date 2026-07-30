@@ -1,0 +1,140 @@
+/* ============================================================
+   MusicPlayer (YouTube Edition) — CSS Module
+   ============================================================ */
+
+.playerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  animation: fadeInUp 0.8s ease 1s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Song info pill */
+.songInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.4rem 1rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.03em;
+}
+
+.songDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--clr-accent-rose);
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* Main button */
+.playButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.75rem 1.75rem;
+  background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.playButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.playButton:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 28px rgba(236, 72, 153, 0.55);
+}
+
+.playButton:hover::before { opacity: 1; }
+.playButton:active { transform: translateY(0) scale(0.98); }
+
+.playButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.buttonIcon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.playButton:hover:not(:disabled) .buttonIcon { transform: scale(1.2); }
+
+/* Animated sound bars */
+.soundBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+}
+
+.bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--clr-accent-rose);
+  animation: soundBar 0.8s ease-in-out infinite alternate;
+}
+
+.bar:nth-child(1) { height: 6px;  animation-delay: 0s;    }
+.bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+.bar:nth-child(3) { height: 10px; animation-delay: 0.3s;  }
+.bar:nth-child(4) { height: 18px; animation-delay: 0.1s;  }
+.bar:nth-child(5) { height: 8px;  animation-delay: 0.25s; }
+
+@keyframes soundBar {
+  from { transform: scaleY(0.4); opacity: 0.6; }
+  to   { transform: scaleY(1);   opacity: 1; }
+}
+
+/* =========================================================
+   RESPONSIVE — MusicPlayer Mobile
+   ========================================================= */
+@media (max-width: 600px) {
+  .playButton {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.9rem 1.5rem;
+    min-height: 48px;
+  }
+
+  .songInfo {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.8rem;
+  }
+}
+

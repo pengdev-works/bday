@@ -1,0 +1,187 @@
+/* ============================================================
+   BirthdayCake — CSS Module
+   ============================================================ */
+
+.cakeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  animation: fadeInUp 1s ease 0.3s both;
+}
+
+/* ---- Candle flame glow ---- */
+@keyframes flicker {
+  0%, 100% { transform: scaleY(1) scaleX(1) translateY(0); opacity: 1; }
+  25%       { transform: scaleY(1.1) scaleX(0.9) translateY(-1px); opacity: 0.85; }
+  50%       { transform: scaleY(0.9) scaleX(1.1) translateY(1px); opacity: 0.95; }
+  75%       { transform: scaleY(1.05) scaleX(0.95) translateY(-0.5px); opacity: 0.9; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px 3px rgba(251, 191, 36, 0.6); }
+  50%       { box-shadow: 0 0 14px 6px rgba(251, 191, 36, 0.9); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Candles row ---- */
+.candlesRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.candle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flame {
+  width: 14px;
+  height: 22px;
+  background: radial-gradient(ellipse at 50% 70%, #fbbf24 40%, #f97316 70%, transparent 100%);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  animation: flicker 1.2s ease-in-out infinite;
+  position: relative;
+}
+
+/* Vary each candle's flicker timing */
+.candle:nth-child(2) .flame { animation-delay: 0.2s; }
+.candle:nth-child(3) .flame { animation-delay: 0.4s; }
+.candle:nth-child(4) .flame { animation-delay: 0.1s; }
+.candle:nth-child(5) .flame { animation-delay: 0.35s; }
+
+.candleBody {
+  width: 12px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, #f9a8d4 0%, #ec4899 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Candle drip effect */
+.candleBody::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  height: 30%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* ---- Cake tiers ---- */
+.cakeTiers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.tier {
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.tier::before {
+  /* Frosting drip */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 0 0 50% 50% / 0 0 8px 8px;
+}
+
+.tier::after {
+  /* Shine */
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 8%;
+  width: 30%;
+  height: 40%;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+
+.tierTop {
+  width: 120px;
+  height: 55px;
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 50%, #db2777 100%);
+  box-shadow: 0 4px 16px rgba(236, 72, 153, 0.4);
+}
+
+.tierMiddle {
+  width: 160px;
+  height: 60px;
+  background: linear-gradient(135deg, #a855f7 0%, #9333ea 50%, #7c3aed 100%);
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
+}
+
+.tierBottom {
+  width: 200px;
+  height: 65px;
+  background: linear-gradient(135deg, #f472b6 0%, #a855f7 50%, #ec4899 100%);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+  border-radius: 6px 6px 4px 4px;
+}
+
+/* Decoration dots on each tier */
+.dots {
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+  position: relative;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+/* ---- Cake plate ---- */
+.plate {
+  width: 220px;
+  height: 16px;
+  background: linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #d97706 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+  position: relative;
+  top: -4px;
+}
+
+/* ---- Label ---- */
+.cakeLabel {
+  font-family: var(--font-script);
+  font-size: 1.1rem;
+  color: var(--clr-accent-gold);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+  margin-top: var(--space-xs);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .tierTop    { width: 100px; height: 45px; }
+  .tierMiddle { width: 135px; height: 50px; }
+  .tierBottom { width: 170px; height: 55px; }
+  .plate      { width: 185px; }
+}
