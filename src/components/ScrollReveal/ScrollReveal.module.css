@@ -1,0 +1,57 @@
+/* ============================================================
+   ScrollReveal — CSS Module  (smooth, conflict-free)
+   ============================================================ */
+
+/*
+  The key problem with "ugly" scroll reveals:
+  Each wrapped component has its own CSS animation (e.g. fadeInUp 0.8s)
+  that fires immediately on mount and COMPLETES before the user scrolls
+  to it. When the scroll reveal then kicks in, the element is already
+  in its final state → it pops in instead of sliding.
+
+  Fix: suppress inner component animations with `> * { animation: none }`
+  so only the ScrollReveal wrapper controls motion.
+*/
+
+/* ---- Hidden state (before entering viewport) ---- */
+.reveal {
+  /* Simple GPU-accelerated properties only — no blur, no scale */
+  opacity: 0;
+  transform: translateY(38px);
+  /* Material Design "standard" easing — natural deceleration */
+  transition:
+    opacity   0.72s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+
+  /* Block-level full width so it doesn't break parent flex layout */
+  display: block;
+  width: 100%;
+
+  /*
+    Suppress ALL CSS animations on the immediate child component.
+    This prevents component animations from running before the reveal fires.
+  */
+}
+
+.reveal > * {
+  /* Reset any animation the wrapped component has */
+  animation: none !important;
+}
+
+/* ---- Visible state (after entering viewport) ---- */
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Prefers-reduced-motion: skip entirely ---- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}

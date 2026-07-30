@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-2xl);
-  animation: fadeInUp 0.8s ease 0.5s both;
+  /* No mount animation — scroll reveal handles this */
 }
 
 @keyframes fadeInUp {
@@ -100,8 +100,29 @@
 
   /* Slight rotation via CSS custom property set in JSX */
   transform: rotate(var(--rotation, 0deg));
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s ease;
+
+  /* Scroll reveal — start invisible, transition includes opacity */
+  opacity: 0;
+  transition:
+    transform  0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    opacity    0.6s ease;
+}
+
+/* Revealed by IntersectionObserver — bidirectional (add/remove) */
+.gridItem[data-revealed="true"] {
+  opacity: 1;
+}
+
+/* Stagger: each column-position gets a different delay
+   so photos cascade in as you scroll, not all at once */
+.gridItem:nth-child(3n + 1) { transition-delay: 0ms;   }
+.gridItem:nth-child(3n + 2) { transition-delay: 90ms;  }
+.gridItem:nth-child(3n + 3) { transition-delay: 180ms; }
+
+/* Keep stagger when hiding (scrolling back up) — shorter delay */
+.gridItem:not([data-revealed]) {
+  transition-delay: 0ms !important;
 }
 
 .gridItem:hover {

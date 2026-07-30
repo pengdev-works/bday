@@ -10,8 +10,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  /* overflow:hidden removed — it caused white-screen paint issues on mobile
+     and incorrectly clipped fixed-position glow blobs. Body handles horizontal overflow. */
+  overflow-x: clip;
 }
+
 
 /* Radial glow blobs for atmospheric depth */
 .page::before,

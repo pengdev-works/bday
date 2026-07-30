@@ -7,7 +7,7 @@
  * Clicking opens a full-screen lightbox (polaroid frame) with
  * prev/next navigation and keyboard support.
  */
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import styles from './PhotoGallery.module.css';
 
 /** All cat photo filenames served from /public/cats/ */
@@ -145,6 +145,44 @@ function PhotoGallery() {
     []
   );
 
+  // Ref for the masonry grid container
+  const gridRef = useRef(null);
+
+  // Bidirectional scroll reveal — reveals each photo as it enters the viewport
+  // and hides it again when it exits (scrolling back up)
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const items = [...grid.children];
+
+    // Graceful fallback for older browsers
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(item => { item.dataset.revealed = 'true'; });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.dataset.revealed = 'true';
+          } else {
+            delete entry.target.dataset.revealed;
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+        // Start revealing slightly before the photo fully enters the viewport
+        rootMargin: '0px 0px -20px 0px',
+      }
+    );
+
+    items.forEach(item => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className={styles.gallerySection} aria-label="Cat photo gallery">
       {/* Heading */}
@@ -162,17 +200,18 @@ function PhotoGallery() {
       </div>
 
       {/* Masonry polaroid grid */}
-      <div className={styles.grid}>
+      <div className={styles.grid} ref={gridRef}>
         {CAT_PHOTOS.map((filename, i) => (
           <div
             key={filename}
-            className={styles.gridItem}
+            className={`${styles.gridItem} sr-photo`}
             style={{ '--rotation': rotations[i] }}
             onClick={() => openLightbox(i)}
             role="button"
             tabIndex={0}
             aria-label={`Open photo ${i + 1}: ${CAPTIONS[i % CAPTIONS.length]}`}
             onKeyDown={(e) => {
+
               if (e.key === 'Enter' || e.key === ' ') openLightbox(i);
             }}
           >
