@@ -22,14 +22,14 @@
  *    Set to null to hide the countdown timer.
  */
 import { useState, useCallback } from 'react';
-import FloatingHearts      from './components/FloatingHearts/FloatingHearts';
-import Confetti            from './components/Confetti/Confetti';
-import BirthdayCake        from './components/BirthdayCake/BirthdayCake';
-import TypingMessage       from './components/TypingMessage/TypingMessage';
-import MusicPlayer         from './components/MusicPlayer/MusicPlayer';
-import CountdownTimer      from './components/CountdownTimer/CountdownTimer';
+import FloatingHearts from './components/FloatingHearts/FloatingHearts';
+import Confetti from './components/Confetti/Confetti';
+import BirthdayCake from './components/BirthdayCake/BirthdayCake';
+import TypingMessage from './components/TypingMessage/TypingMessage';
+import MusicPlayer from './components/MusicPlayer/MusicPlayer';
+import CountdownTimer from './components/CountdownTimer/CountdownTimer';
 import SpecialMessageModal from './components/SpecialMessageModal/SpecialMessageModal';
-import PhotoGallery        from './components/PhotoGallery/PhotoGallery';
+import PhotoGallery from './components/PhotoGallery/PhotoGallery';
 import styles from './App.module.css';
 
 /**
@@ -46,7 +46,7 @@ function App() {
    * The "💌 A Special Message" button also opens it manually.
    */
   const [modalOpen, setModalOpen] = useState(false);
-  const openModal  = useCallback(() => setModalOpen(true),  []);
+  const openModal = useCallback(() => setModalOpen(true), []);
   const closeModal = useCallback(() => setModalOpen(false), []);
 
   return (
@@ -65,9 +65,6 @@ function App() {
         <header className={styles.header}>
           <span className={styles.headerBadge}>✨ A Special Day ✨</span>
           <h1 className={styles.headerTitle}>Happy Birthday!</h1>
-          <p className={styles.headerSub}>
-            A heartfelt message, crafted just for you
-          </p>
           <div className={styles.stars} aria-hidden="true">
             {['🌸', '✨', '💜', '✨', '🌸'].map((s, i) => (
               <span key={i}>{s}</span>
