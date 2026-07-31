@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import styles from './TypingMessage.module.css';
 
 /** The main typed birthday message (signature shown separately below) */
-const MESSAGE = `Hi good morning or good evening, anusam detoy nga inaramid kon haan ka met ngamin maikkan ti gift so atoy lattan, Happy Birthday jeng, Thank you for the memories we shared. Have an amazing birthday and enjoy your special day.`;
+const MESSAGE = `Hi Advance or Belated Happy Birthday, anusam detoy nga inaramid kon haan ka met ngamin maikkan ti gift so atoy lattan, Happy Birthday jeng, Thank you for the memories we shared. Have an amazing birthday and enjoy your special day.`;
 
 /** Signature shown beneath the message once typing finishes */
 const SIGNATURE = 'by: paragas 🤍';

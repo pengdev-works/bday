@@ -1,5 +1,5 @@
 /* ============================================================
-   MusicPlayer (YouTube Edition) — CSS Module
+   MusicPlayer — CSS Module (Luxury Spotify Edition)
    ============================================================ */
 
 .playerWrapper {
@@ -20,123 +20,82 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: 0.4rem 1rem;
-  background: rgba(255,255,255,0.05);
+  padding: 0.45rem 1.2rem;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--clr-glass-border);
   border-radius: var(--radius-full);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--clr-text-muted);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
-.songDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--clr-accent-rose);
-  animation: pulseDot 1.5s ease-in-out infinite;
-}
-
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.7); }
-}
-
-/* Main button */
+/* Main play button */
 .playButton {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: 0.75rem 1.75rem;
-  background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
-  color: #fff;
-  border: none;
+  padding: 0.85rem 2.2rem;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(244, 114, 182, 0.2));
+  color: var(--clr-text-primary);
+  border: 1px solid rgba(168, 85, 247, 0.45);
   border-radius: var(--radius-full);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.25);
   position: relative;
   overflow: hidden;
 }
 
-.playButton::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
 .playButton:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 28px rgba(236, 72, 153, 0.55);
+  background: linear-gradient(135deg, var(--clr-accent-purple), var(--clr-accent-rose));
+  color: #ffffff;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 32px rgba(168, 85, 247, 0.45);
+  border-color: transparent;
 }
 
-.playButton:hover::before { opacity: 1; }
-.playButton:active { transform: translateY(0) scale(0.98); }
-
-.playButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
+.playButton:active {
+  transform: translateY(-1px) scale(0.98);
 }
 
 .buttonIcon {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   transition: transform 0.3s ease;
 }
 
-.playButton:hover:not(:disabled) .buttonIcon { transform: scale(1.2); }
-
-/* Animated sound bars */
-.soundBars {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 20px;
+.playButton:hover .buttonIcon {
+  transform: scale(1.2);
 }
 
-.bar {
-  width: 3px;
-  border-radius: 2px;
-  background: var(--clr-accent-rose);
-  animation: soundBar 0.8s ease-in-out infinite alternate;
-}
-
-.bar:nth-child(1) { height: 6px;  animation-delay: 0s;    }
-.bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
-.bar:nth-child(3) { height: 10px; animation-delay: 0.3s;  }
-.bar:nth-child(4) { height: 18px; animation-delay: 0.1s;  }
-.bar:nth-child(5) { height: 8px;  animation-delay: 0.25s; }
-
-@keyframes soundBar {
-  from { transform: scaleY(0.4); opacity: 0.6; }
-  to   { transform: scaleY(1);   opacity: 1; }
-}
-
-/* ---- Spotify embedded player ---- */
+/* ---- Spotify embedded player container ---- */
 .spotifyWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-sm);
   width: 100%;
-  max-width: 380px;
-  background: var(--clr-glass-bg);
+  max-width: 400px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--clr-glass-border);
   border-radius: var(--radius-lg);
   padding: var(--space-md);
-  box-shadow: var(--shadow-card);
-  animation: fadeInUp 0.4s ease;
+  box-shadow: var(--shadow-card), var(--shadow-glow-purple);
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .spotifyLabel {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--clr-text-muted);
   letter-spacing: 0.06em;
   font-style: italic;
@@ -145,46 +104,38 @@
 .spotifyIframe {
   border-radius: 12px;
   width: 100%;
+  border: none;
 }
 
 .closePlayerBtn {
   background: transparent;
   border: 1px solid var(--clr-glass-border);
   color: var(--clr-text-muted);
-  font-size: 0.78rem;
-  padding: 0.3rem 0.9rem;
+  font-size: 0.8rem;
+  padding: 0.35rem 1rem;
   border-radius: var(--radius-full);
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition: all 0.25s ease;
   letter-spacing: 0.04em;
 }
 
 .closePlayerBtn:hover {
   color: var(--clr-accent-rose);
-  border-color: var(--clr-accent-rose);
+  border-color: rgba(244, 114, 182, 0.5);
+  background: rgba(244, 114, 182, 0.12);
 }
 
-/* =========================================================
-   RESPONSIVE — MusicPlayer Mobile
-   ========================================================= */
+/* Responsive */
 @media (max-width: 600px) {
   .playButton {
     width: 100%;
     max-width: 320px;
     justify-content: center;
-    font-size: 1rem;
-    padding: 0.9rem 1.5rem;
-    min-height: 48px;
-  }
-
-  .songInfo {
-    font-size: 0.72rem;
-    padding: 0.35rem 0.8rem;
+    font-size: 0.92rem;
+    padding: 0.85rem 1.6rem;
   }
 
   .spotifyWrapper {
     max-width: 100%;
   }
 }
-
-

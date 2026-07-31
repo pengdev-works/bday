@@ -73,7 +73,7 @@ function Lightbox({ index, onClose, onPrev, onNext, total }) {
 
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === 'Escape')    onClose();
+      if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft') onPrev();
       if (e.key === 'ArrowRight') onNext();
     };
@@ -132,7 +132,7 @@ function Lightbox({ index, onClose, onPrev, onNext, total }) {
 function PhotoGallery() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const openLightbox  = useCallback((i) => setLightboxIndex(i), []);
+  const openLightbox = useCallback((i) => setLightboxIndex(i), []);
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
   const goPrev = useCallback(() =>
     setLightboxIndex((i) => (i - 1 + CAT_PHOTOS.length) % CAT_PHOTOS.length), []);
@@ -188,7 +188,7 @@ function PhotoGallery() {
       {/* Heading */}
       <div className={styles.galleryHeading}>
         <span className={styles.galleryBadge}>🐾 memories</span>
-        <h2 className={styles.galleryTitle}>Our Little Moments 🐱</h2>
+        <h2 className={styles.galleryTitle}>Our Babies 🐱</h2>
         <p className={styles.gallerySubtitle}>Click any photo to view full-screen</p>
       </div>
 

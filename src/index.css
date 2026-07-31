@@ -1,5 +1,5 @@
 /* ============================================================
-   Global Styles & CSS Custom Properties
+   Global Styles & CSS Custom Properties — Luxury Edition
    ============================================================ */
 
 *, *::before, *::after {
@@ -9,76 +9,109 @@
 }
 
 :root {
-  /* Color palette — warm romantic tones */
-  --clr-bg-start: #1a0a1e;
-  --clr-bg-mid: #2d0f3e;
-  --clr-bg-end: #1a0a1e;
+  /* Color palette — Rich Royal Violet & Champagne Gold Theme */
+  --clr-bg-start: #0b0412;
+  --clr-bg-mid: #180928;
+  --clr-bg-end: #0c0515;
+
+  /* Accents */
   --clr-accent-rose: #f472b6;
   --clr-accent-pink: #ec4899;
   --clr-accent-purple: #a855f7;
-  --clr-accent-lavender: #c084fc;
-  --clr-accent-gold: #fbbf24;
-  --clr-text-primary: #fdf2f8;
-  --clr-text-secondary: #e9d5ff;
-  --clr-text-muted: #c4b5d0;
-  --clr-glass-bg: rgba(255, 255, 255, 0.05);
-  --clr-glass-border: rgba(255, 255, 255, 0.12);
+  --clr-accent-lavender: #d8b4fe;
+  --clr-accent-gold: #fef08a;
+  --clr-accent-gold-dark: #f59e0b;
+
+  /* Text colors */
+  --clr-text-primary: #ffffff;
+  --clr-text-secondary: #f3e8ff;
+  --clr-text-muted: #c4b5fd;
+
+  /* Glassmorphism */
+  --clr-glass-bg: rgba(255, 255, 255, 0.04);
+  --clr-glass-card: rgba(255, 255, 255, 0.05);
+  --clr-glass-border: rgba(255, 255, 255, 0.14);
+  --clr-glass-highlight: rgba(255, 255, 255, 0.22);
 
   /* Typography */
+  --font-editorial: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   --font-display: 'Playfair Display', Georgia, serif;
   --font-script: 'Dancing Script', cursive;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
 
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 3.5rem;
+  --space-3xl: 5rem;
 
   /* Border radius */
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
-  --radius-xl: 2rem;
+  --radius-xl: 2.25rem;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-glow-pink: 0 0 30px rgba(244, 114, 182, 0.3);
-  --shadow-glow-purple: 0 0 30px rgba(168, 85, 247, 0.3);
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  /* Glow Shadows */
+  --shadow-glow-pink: 0 12px 40px rgba(244, 114, 182, 0.22);
+  --shadow-glow-purple: 0 12px 40px rgba(168, 85, 247, 0.22);
+  --shadow-glow-gold: 0 12px 40px rgba(254, 240, 138, 0.2);
+  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.55);
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
   font-family: var(--font-body);
-  background: linear-gradient(
-    135deg,
-    var(--clr-bg-start) 0%,
-    var(--clr-bg-mid) 50%,
-    var(--clr-bg-end) 100%
+  background: radial-gradient(
+    circle at 50% 20%,
+    #2a0f3d 0%,
+    var(--clr-bg-start) 65%
   );
-  background-attachment: fixed;  /* gradient stays fixed as you scroll */
+  background-attachment: fixed;
   min-height: 100vh;
   color: var(--clr-text-primary);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ambient glow spotlight overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10vw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  height: 60vh;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(244, 114, 182, 0.12) 0%,
+    rgba(168, 85, 247, 0.08) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--clr-bg-mid);
+  background: var(--clr-bg-start);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--clr-accent-purple);
+  background: linear-gradient(180deg, var(--clr-accent-rose), var(--clr-accent-purple));
   border-radius: var(--radius-full);
 }
 
@@ -92,7 +125,7 @@ body {
 /* Selection */
 ::selection {
   background: rgba(244, 114, 182, 0.35);
-  color: var(--clr-text-primary);
+  color: #ffffff;
 }
 
 /* Utility: visually hidden */
@@ -110,17 +143,12 @@ body {
 
 /* ============================================================
    Scroll-driven animations — pure CSS, GPU compositor thread.
-   Bidirectional: animate IN on scroll down, reverse OUT on scroll up.
-
-   Uses animation-timeline: view() — Chrome 115+, Firefox 127+, Safari 17.2+
-   Fallback: all content visible normally, no animation.
    ============================================================ */
 
-/* Section-level slide-up reveal */
 @keyframes sr-fade-up {
   from {
     opacity: 0;
-    transform: translateY(48px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -128,32 +156,24 @@ body {
   }
 }
 
-/* Individual item fade (used for gallery photos) */
 @keyframes sr-fade-in {
-  from { opacity: 0; transform: scale(0.92); }
+  from { opacity: 0; transform: scale(0.94); }
   to   { opacity: 1; transform: scale(1); }
 }
 
 @supports (animation-timeline: view()) {
-  /* Whole sections slide up/down */
   .sr {
     animation: sr-fade-up linear both;
     animation-timeline: view();
-    /* entry 0%  = bottom edge of element at viewport bottom → hidden
-       entry 30% = 30% of element in viewport → fully visible
-       Bidirectional: reverses when scrolling back up */
     animation-range: entry 0% entry 30%;
   }
 
-  /* Individual gallery photos — each has its OWN view timeline */
   .sr-photo {
     animation: sr-fade-in ease-out both;
     animation-timeline: view();
     animation-range: entry 0% entry 40%;
   }
 
-  /* Stagger: odd photos come in a little earlier than even */
   .sr-photo:nth-child(odd)  { animation-range: entry 0% entry 35%; }
   .sr-photo:nth-child(even) { animation-range: entry 5% entry 40%; }
 }
-

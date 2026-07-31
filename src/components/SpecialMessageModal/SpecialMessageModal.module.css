@@ -1,13 +1,13 @@
 /* ============================================================
-   SpecialMessageModal — CSS Module
+   SpecialMessageModal — CSS Module (Luxury Edition)
    ============================================================ */
 
-/* ---- Trigger button ---- */
+/* ---- Trigger button (Uncontrolled mode) ---- */
 .triggerButton {
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: 0.8rem 2rem;
+  padding: 0.85rem 2.2rem;
   background: transparent;
   border: 2px solid var(--clr-accent-rose);
   color: var(--clr-accent-rose);
@@ -27,7 +27,7 @@
   background: var(--clr-accent-rose);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(244, 114, 182, 0.45);
+  box-shadow: 0 8px 28px rgba(244, 114, 182, 0.45);
 }
 
 .triggerButton:active {
@@ -43,15 +43,15 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  z-index: 1000;
+  background: rgba(10, 4, 16, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-md);
-  animation: backdropIn 0.3s ease;
+  animation: backdropIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes backdropIn {
@@ -63,22 +63,25 @@
 .modal {
   background: linear-gradient(
     145deg,
-    rgba(30, 10, 40, 0.95) 0%,
-    rgba(50, 15, 70, 0.95) 100%
+    rgba(24, 9, 36, 0.97) 0%,
+    rgba(50, 16, 72, 0.97) 100%
   );
   border: 1px solid var(--clr-glass-border);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl) var(--space-xl);
-  max-width: 520px;
+  max-width: 540px;
   width: 100%;
   position: relative;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), var(--shadow-glow-purple);
-  animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75),
+              0 0 44px rgba(244, 114, 182, 0.25),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  animation: modalIn 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
   text-align: center;
+  outline: none;
 }
 
 @keyframes modalIn {
-  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  from { opacity: 0; transform: scale(0.88) translateY(24px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
@@ -87,33 +90,40 @@
   position: absolute;
   top: var(--space-md);
   right: var(--space-md);
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  border: 1px solid var(--clr-glass-border);
-  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
   color: var(--clr-text-muted);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
 }
 
 .closeButton:hover {
-  background: rgba(244, 114, 182, 0.2);
+  background: rgba(244, 114, 182, 0.22);
   color: var(--clr-accent-rose);
+  border-color: rgba(244, 114, 182, 0.4);
   transform: rotate(90deg);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--clr-accent-rose);
+  outline-offset: 2px;
 }
 
 /* Modal decorative icon */
 .modalIcon {
-  font-size: 3rem;
+  font-size: 3.2rem;
   display: block;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   animation: floatBounce 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(244, 114, 182, 0.45));
 }
 
 @keyframes floatBounce {
@@ -124,24 +134,25 @@
 /* Modal heading */
 .modalHeading {
   font-family: var(--font-script);
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
   color: var(--clr-accent-rose);
-  margin-bottom: var(--space-lg);
-  text-shadow: 0 0 16px rgba(244, 114, 182, 0.4);
+  margin-bottom: var(--space-md);
+  text-shadow: 0 0 18px rgba(244, 114, 182, 0.45);
 }
 
 /* Modal body text */
 .modalText {
-  font-family: var(--font-display);
+  font-family: var(--font-editorial);
   font-style: italic;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-  line-height: 1.9;
+  font-size: clamp(1.05rem, 2.8vw, 1.25rem);
+  line-height: 1.95;
   color: var(--clr-text-secondary);
+  padding: 0 var(--space-xs);
 }
 
 /* Divider */
 .divider {
-  width: 60px;
+  width: 70px;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--clr-accent-rose), transparent);
   margin: var(--space-lg) auto;
@@ -152,24 +163,20 @@
 /* Signature line */
 .signature {
   font-family: var(--font-script);
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   color: var(--clr-accent-lavender);
   margin-top: var(--space-md);
+  text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
 }
 
-/* =========================================================
-   RESPONSIVE — Modal Mobile
-   ========================================================= */
-
-/* Tablets */
+/* Responsive */
 @media (max-width: 768px) {
   .modal {
     padding: var(--space-xl) var(--space-lg);
-    max-width: 95vw;
+    max-width: 92vw;
   }
 }
 
-/* Phones — bottom-sheet style */
 @media (max-width: 600px) {
   .backdrop {
     align-items: flex-end;
@@ -178,36 +185,34 @@
 
   .modal {
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-    padding: var(--space-xl) var(--space-md) calc(var(--space-xl) + env(safe-area-inset-bottom));
+    padding: var(--space-lg) var(--space-md) calc(var(--space-xl) + env(safe-area-inset-bottom));
     max-width: 100%;
     width: 100%;
-    animation: slideUp 0.35s cubic-bezier(0.34, 1.20, 0.64, 1);
+    animation: slideUp 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
   }
 
   @keyframes slideUp {
-    from { opacity: 0; transform: translateY(60px); }
+    from { opacity: 0; transform: translateY(80px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   .closeButton {
     width: 44px;
     height: 44px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
-  .modalIcon   { font-size: 2.2rem; }
-  .modalText   { font-size: 0.95rem; line-height: 1.8; }
-  .signature   { font-size: 1.1rem; }
+  .modalIcon   { font-size: 2.5rem; }
+  .modalText   { font-size: 1rem; line-height: 1.85; }
+  .signature   { font-size: 1.2rem; }
 
-  /* Drag handle visual hint */
   .modal::before {
     content: '';
     display: block;
-    width: 40px;
+    width: 44px;
     height: 4px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.25);
     border-radius: 2px;
-    margin: 0 auto var(--space-lg);
+    margin: 0 auto var(--space-md);
   }
 }
-

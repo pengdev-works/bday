@@ -1,35 +1,34 @@
 /* ============================================================
-   CountdownTimer — CSS Module
+   CountdownTimer — CSS Module (Luxury Edition)
    ============================================================ */
 
 .timerWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-xl);
-  background: var(--clr-glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  gap: var(--space-lg);
+  padding: var(--space-2xl) var(--space-xl);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--clr-glass-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  animation: fadeInUp 0.8s ease 0.8s both;
+  box-shadow: var(--shadow-card), var(--shadow-glow-purple);
   width: 100%;
-  max-width: 480px;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  max-width: 540px;
 }
 
 .timerTitle {
-  font-family: var(--font-script);
-  font-size: 1.4rem;
-  color: var(--clr-accent-lavender);
+  font-family: var(--font-editorial);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--clr-text-secondary);
   text-align: center;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 /* ---- Age badge ---- */
@@ -37,23 +36,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: var(--space-sm) var(--space-xl);
-  background: rgba(244, 114, 182, 0.08);
-  border: 1px solid rgba(244, 114, 182, 0.25);
+  gap: 4px;
+  padding: var(--space-sm) var(--space-2xl);
+  background: linear-gradient(135deg, rgba(254, 240, 138, 0.08), rgba(244, 114, 182, 0.08));
+  border: 1px solid rgba(254, 240, 138, 0.3);
   border-radius: var(--radius-full);
+  box-shadow: 0 4px 20px rgba(254, 240, 138, 0.1);
 }
 
 .ageNumber {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-family: var(--font-editorial);
+  font-size: clamp(2.8rem, 6vw, 3.8rem);
   font-weight: 700;
   line-height: 1;
-  background: linear-gradient(135deg, #fbbf24, #f472b6, #a855f7);
+  background: linear-gradient(135deg, var(--clr-accent-gold) 0%, var(--clr-accent-rose) 50%, var(--clr-accent-purple) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmerAge 3s linear infinite;
+  animation: shimmerAge 4s linear infinite;
   background-size: 200% auto;
 }
 
@@ -63,80 +63,92 @@
 }
 
 .ageLabel {
-  font-size: 0.75rem;
-  color: var(--clr-text-muted);
-  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--clr-accent-lavender);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }
-
 
 /* Countdown grid */
 .countdownGrid {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .timeUnit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  min-width: 70px;
+  justify-content: center;
+  gap: 6px;
+  min-width: 82px;
+  padding: 0.85rem 0.6rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.timeUnit:hover {
+  border-color: rgba(244, 114, 182, 0.4);
+  transform: translateY(-2px);
 }
 
 .timeValue {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-family: var(--font-editorial);
+  font-size: clamp(2.2rem, 5vw, 3rem);
   font-weight: 700;
-  color: var(--clr-text-primary);
-  background: linear-gradient(135deg, #f472b6, #a855f7);
+  background: linear-gradient(135deg, #ffffff 0%, var(--clr-accent-rose) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1;
-  min-width: 2.5ch;
+  min-width: 2.2ch;
   text-align: center;
-  /* Subtle number flip animation */
   transition: transform 0.2s ease;
 }
 
 .timeValue.tick {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 .timeLabel {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   color: var(--clr-text-muted);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Separator colon */
 .separator {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  color: var(--clr-accent-purple);
-  align-self: flex-start;
-  padding-top: 4px;
-  animation: blink 1s step-end infinite;
+  color: var(--clr-accent-rose);
+  align-self: center;
+  margin-top: -16px;
+  animation: blink 1.2s step-end infinite;
+  opacity: 0.8;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
+  0%, 100% { opacity: 0.9; }
+  50%       { opacity: 0.25; }
 }
 
 /* Birthday reached state */
 .birthdayNow {
   font-family: var(--font-script);
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--clr-accent-rose);
   text-align: center;
-  text-shadow: 0 0 20px rgba(244, 114, 182, 0.6);
+  text-shadow: 0 0 24px rgba(244, 114, 182, 0.6);
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -145,38 +157,32 @@
   50%       { transform: scale(1.05); }
 }
 
-/* =========================================================
-   RESPONSIVE — CountdownTimer Mobile
-   ========================================================= */
-
+/* Responsive */
 @media (max-width: 600px) {
   .timerWrapper {
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-xl) var(--space-md);
     max-width: 100%;
   }
 
-  .timerTitle { font-size: 1.1rem; }
+  .timerTitle { font-size: 1.3rem; }
 
-  .ageBadge { padding: var(--space-xs) var(--space-lg); }
-  .ageNumber { font-size: clamp(1.8rem, 8vw, 2.4rem); }
-
-  /* Keep all 4 units on one row but shrink them */
   .countdownGrid {
-    gap: 2px;
+    gap: 4px;
     flex-wrap: nowrap;
   }
 
-  .timeUnit   { min-width: 56px; }
-  .timeValue  { font-size: clamp(1.5rem, 7vw, 2rem); }
-  .timeLabel  { font-size: 0.55rem; letter-spacing: 0.08em; }
-  .separator  { font-size: 1.4rem; padding-top: 2px; }
-  .birthdayNow { font-size: 1.3rem; }
+  .timeUnit {
+    min-width: 62px;
+    padding: 0.65rem 0.3rem;
+  }
+
+  .timeValue  { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+  .timeLabel  { font-size: 0.58rem; letter-spacing: 0.1em; }
+  .separator  { font-size: 1.5rem; margin-top: -12px; }
 }
 
 @media (max-width: 380px) {
-  .countdownGrid { gap: 1px; }
-  .timeUnit   { min-width: 46px; }
-  .timeValue  { font-size: 1.3rem; }
-  .separator  { font-size: 1.1rem; }
+  .countdownGrid { gap: 2px; }
+  .timeUnit   { min-width: 50px; }
+  .timeValue  { font-size: 1.4rem; }
 }
-

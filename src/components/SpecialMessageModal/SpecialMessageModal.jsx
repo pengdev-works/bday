@@ -17,7 +17,7 @@ import { useState, useEffect, useCallback } from 'react';
 import styles from './SpecialMessageModal.module.css';
 
 /** The special message shown inside the modal */
-const SPECIAL_MESSAGE = `Even though we've gone our separate ways, I sincerely hope life brings you everything you've ever wished for. Happy Birthday, and thank you for being a part of my story.`;
+const SPECIAL_MESSAGE = `Even though we've gone our separate ways, I hope you always wins in life and may all your hardwork paid off. I'm always proud of you and your successes.. Happy Birthday, and thank you for being a part of my story.`;
 
 /**
  * SpecialMessageModal
